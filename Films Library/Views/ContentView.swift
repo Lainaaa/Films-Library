@@ -9,22 +9,22 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ContentView: View {
-    @State var bestFilms: FilmData?
-    @State var awaitFilms: FilmData?
+    @State private var bestFilms: FilmData?
+    @State private var awaitFilms: FilmData?
     
+    //Color of header
     init() {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor:  UIColor.white]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                filmScrollView(for: TopFilmTypes.best.rawValue, films: bestFilms?.films) { filmData in
+                loadFilmsToTheView(for: TopFilmTypes.best.rawValue, films: bestFilms?.films) { filmData in
                     self.bestFilms = filmData
                 }
-                filmScrollView(for: TopFilmTypes.await.rawValue, films: awaitFilms?.films) { filmData in
+                loadFilmsToTheView(for: TopFilmTypes.await.rawValue, films: awaitFilms?.films) { filmData in
                     self.awaitFilms = filmData
                 }
             }
@@ -33,29 +33,22 @@ struct ContentView: View {
         }
     }
     
-    private func filmScrollView(for list: String, films: [MovieItem]?, onLoad: @escaping (FilmData) -> Void) -> some View {
+    //
+    private func loadFilmsToTheView(for list: String, films: [MovieItem]?, onLoad: @escaping (FilmData) -> Void) -> some View {
         if let films = films {
             return AnyView(FilmsScrollView(films: films))
         } else {
             return AnyView(ProgressView().onAppear {
-                FilmLoader().loadData(list: list, completion: { (filmData: FilmData?) in
+                FilmLoader().loadListOfFilms(list: list, completion: { (filmData: FilmData?) in
                     guard let filmData = filmData else {
                         print("Could not read data")
                         return
                     }
                     onLoad(filmData)
-                }, isOneMovie: false)
+                })
             })
         }
     }
-
-    
-//    private func loadingView(list: String, completion: @escaping (FilmData?) -> Void) -> some View {
-//        ProgressView()
-//            .onAppear {
-//                FilmLoader().loadData(list: list, completion: completion, isOneMovie: false)
-//            }
-//    }
 }
 
 
