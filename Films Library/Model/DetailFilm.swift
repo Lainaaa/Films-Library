@@ -6,8 +6,13 @@ struct DetailFilm: Codable{
     var posterUrl: String?
     var genres: [Genre]?
     var ratingKinopoisk: Float?
-    var webUr: String?
+    var webUrl: String?
     var year : Int?
     var filmLength: Int?
     var description: String?
+}
+
+
+struct Genre: Codable{
+    var genre: String?
 }

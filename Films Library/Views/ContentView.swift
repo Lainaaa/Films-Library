@@ -36,7 +36,11 @@ struct ContentView: View {
     //
     private func loadFilmsToTheView(for list: String, films: [MovieItem]?, onLoad: @escaping (FilmData) -> Void) -> some View {
         if let films = films {
-            return AnyView(FilmsScrollView(films: films))
+            if list == "TOP_250_BEST_FILMS"{
+                return AnyView(FilmsScrollView(films: films, header: "Best Films"))
+            }else{
+                return AnyView(FilmsScrollView(films: films, header: "Await Films"))
+            }
         } else {
             return AnyView(ProgressView().onAppear {
                 FilmLoader().loadListOfFilms(list: list, completion: { (filmData: FilmData?) in

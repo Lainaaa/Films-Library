@@ -1,4 +1,5 @@
 import Foundation
+import Alamofire
 
 class FilmLoader {
     func loadListOfFilms(list: String, completion: @escaping (FilmData) -> Void) {
@@ -27,5 +28,23 @@ class FilmLoader {
         }
 
         task.resume()
+    }
+    
+    func loadFilm(id: String, completion: @escaping (DetailFilm?) -> Void) {
+        let url = "https://kinopoiskapiunofficial.tech/api/v2.2/films/\(id)"
+        let headers: HTTPHeaders = [
+            "X-API-KEY": apiKey,
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(url, headers: headers).responseDecodable(of: DetailFilm.self) { response in
+            switch response.result {
+            case .success(let detailFilm):
+                completion(detailFilm)
+            case .failure(let error):
+                print("Error loading film: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
     }
 }

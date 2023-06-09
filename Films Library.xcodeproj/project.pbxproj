@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48131F2B2A33D2CA0017F20B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 48131F2A2A33D2CA0017F20B /* Alamofire */; };
 		48C8A65329F130C9005D475B /* DetailFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8A65229F130C9005D475B /* DetailFilm.swift */; };
 		48DA3B0629B9EB5100C1A409 /* Films_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA3B0529B9EB5100C1A409 /* Films_LibraryApp.swift */; };
 		48DA3B0829B9EB5100C1A409 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA3B0729B9EB5100C1A409 /* ContentView.swift */; };
@@ -43,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48DA3B1529B9EB7500C1A409 /* SDWebImageSwiftUI in Frameworks */,
+				48131F2B2A33D2CA0017F20B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +136,7 @@
 			name = "Films Library";
 			packageProductDependencies = (
 				48DA3B1429B9EB7500C1A409 /* SDWebImageSwiftUI */,
+				48131F2A2A33D2CA0017F20B /* Alamofire */,
 			);
 			productName = "Films Library";
 			productReference = 48DA3B0229B9EB5100C1A409 /* Films Library.app */;
@@ -165,6 +168,7 @@
 			mainGroup = 48DA3AF929B9EB5100C1A409;
 			packageReferences = (
 				48DA3B1329B9EB7500C1A409 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				48131F292A33D2CA0017F20B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 48DA3B0329B9EB5100C1A409 /* Products */;
 			projectDirPath = "";
@@ -405,6 +409,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		48131F292A33D2CA0017F20B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		48DA3B1329B9EB7500C1A409 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -416,6 +428,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		48131F2A2A33D2CA0017F20B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48131F292A33D2CA0017F20B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		48DA3B1429B9EB7500C1A409 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 48DA3B1329B9EB7500C1A409 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

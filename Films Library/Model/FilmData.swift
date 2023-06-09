@@ -19,7 +19,3 @@ struct MovieItem: Codable, Identifiable{
     var year : String?
     var id: Int { filmId }
 }
-
-struct Genre: Codable{
-    var genre: String?
-}

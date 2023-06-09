@@ -24,22 +24,26 @@ struct FilmDetailView: View {
                     .fontWeight(.bold)
                 Text(String((film.year)!) ?? "Error")
                     .foregroundColor(Color.white)
-//                HStack{
-//                    Text("\(film.nameRu)")
-//                }
+                //                HStack{
+                //                    Text("\(film.nameRu)")
+                //                }
             } else {
-                Text("Loading")
                 ProgressView()
             }
         }
         .background(Color(red: 45/255, green: 39/255, blue: 52/255))
-        // TODO: - rewrite this code
-//        .onAppear {
-//            // Make a request to load the film details
-//            FilmLoader().loadData(list: "\(id)", completion: { (filmData: DetailFilm?) in
-//                self.film = filmData
-//            }, isOneMovie: true)
-//        }
+        .onAppear {
+            // Make a request to load the film details
+            FilmLoader().loadFilm(id: id) { detailFilm in
+                if let film = detailFilm {
+                    // use the loaded film object here
+                    self.film = film
+                } else {
+                    // handle error case here
+                    print("Failed to load film")
+                }
+            }
+        }
     }
 }
 
