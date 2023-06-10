@@ -16,6 +16,8 @@ struct ContentView: View {
     init() {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor:  UIColor.white]
+        
+        UINavigationBar.appearance().barTintColor = UIColor(red: 45/255, green: 39/255, blue: 52/255, alpha: 1)
     }
     
     var body: some View {
@@ -37,9 +39,9 @@ struct ContentView: View {
     private func loadFilmsToTheView(for list: String, films: [MovieItem]?, onLoad: @escaping (FilmData) -> Void) -> some View {
         if let films = films {
             if list == "TOP_250_BEST_FILMS"{
-                return AnyView(FilmsScrollView(films: films, header: "Best Films"))
+                return AnyView(FilmsScrollView(films: films, header: "Лучшие"))
             }else{
-                return AnyView(FilmsScrollView(films: films, header: "Await Films"))
+                return AnyView(FilmsScrollView(films: films, header: "Долгожданные"))
             }
         } else {
             return AnyView(ProgressView().onAppear {

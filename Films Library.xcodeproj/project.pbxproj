@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		48131F2B2A33D2CA0017F20B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 48131F2A2A33D2CA0017F20B /* Alamofire */; };
+		485E148D2A34CDBD0091CF84 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485E148C2A34CDBD0091CF84 /* RatingView.swift */; };
 		48C8A65329F130C9005D475B /* DetailFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8A65229F130C9005D475B /* DetailFilm.swift */; };
 		48DA3B0629B9EB5100C1A409 /* Films_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA3B0529B9EB5100C1A409 /* Films_LibraryApp.swift */; };
 		48DA3B0829B9EB5100C1A409 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA3B0729B9EB5100C1A409 /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		485E148C2A34CDBD0091CF84 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		48C8A65229F130C9005D475B /* DetailFilm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFilm.swift; sourceTree = "<group>"; };
 		48DA3B0229B9EB5100C1A409 /* Films Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Films Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DA3B0529B9EB5100C1A409 /* Films_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Films_LibraryApp.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				48DA3B0729B9EB5100C1A409 /* ContentView.swift */,
 				48DA3B2129BB4FD300C1A409 /* FilmScrollView.swift */,
 				48E8D03129BF268A00FCA143 /* FilmDetailView.swift */,
+				485E148C2A34CDBD0091CF84 /* RatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				48DA3B1B29B9EBC200C1A409 /* ApiKey.swift in Sources */,
 				48E8D03229BF268A00FCA143 /* FilmDetailView.swift in Sources */,
 				48DA3B2029B9EEF200C1A409 /* Request.swift in Sources */,
+				485E148D2A34CDBD0091CF84 /* RatingView.swift in Sources */,
 				48DA3B2229BB4FD300C1A409 /* FilmScrollView.swift in Sources */,
 				48DA3B0829B9EB5100C1A409 /* ContentView.swift in Sources */,
 				48DA3B0629B9EB5100C1A409 /* Films_LibraryApp.swift in Sources */,

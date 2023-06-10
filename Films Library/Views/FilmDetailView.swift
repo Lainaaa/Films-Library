@@ -9,41 +9,87 @@ struct FilmDetailView: View {
     @State var film: DetailFilm?
     
     var body: some View {
-        VStack {
-            if let film = film {
-                // Display film details here
-                WebImage(url: URL(string: film.posterUrl ?? urlIfImageNil))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)              .scaledToFit()
-                Text(film.nameEn ?? film.nameOriginal ?? film.nameRu ?? "Error")
-                    .foregroundColor(Color.white)
-                    .offset(y: -50)
-                    .padding(.bottom, -50)
-                    .font(.title)
-                    .fontWeight(.bold)
-                Text(String((film.year)!) ?? "Error")
-                    .foregroundColor(Color.white)
-                //                HStack{
-                //                    Text("\(film.nameRu)")
-                //                }
-            } else {
-                ProgressView()
-            }
-        }
-        .background(Color(red: 45/255, green: 39/255, blue: 52/255))
-        .onAppear {
-            // Make a request to load the film details
-            FilmLoader().loadFilm(id: id) { detailFilm in
-                if let film = detailFilm {
-                    // use the loaded film object here
-                    self.film = film
-                } else {
-                    // handle error case here
-                    print("Failed to load film")
+        // to know size of screen
+        GeometryReader{ reader in
+            ScrollView{
+                VStack {
+                    if let film = film {
+                        WebImage(url: URL(string: film.posterUrl ?? urlIfImageNil))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(maxWidth: reader.size.width, maxHeight: reader.size.height) .scaledToFit()
+                            .cornerRadius(25)
+                            .padding(.top, -40)
+                            .overlay(
+                                LinearGradient(gradient: Gradient(colors: [Color(red: 45/255, green: 39/255, blue: 52/255), Color.clear]), startPoint: .bottom, endPoint: .top)
+                            )
+                        Text(film.nameEn ?? film.nameOriginal ?? film.nameRu ?? "Error")
+                            .foregroundColor(Color.white)
+                            .offset(y: -50)
+                            .padding(.bottom, -50)
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Text(film.nameRu ?? "" )
+                            .padding(.top, -20)
+                        Spacer()
+                        HStack{
+                            Text("\(film.year.map(String.init) ?? "")")
+                            Text("✩")
+                            Text(film.genres?.map({ $0.genre ?? "" }).joined(separator: ", ") ?? "")
+                            Text("✩")
+                            if let filmLength = film.filmLength {
+                                let filmLengthInMinutes = filmLength / 60
+                                Text("\(filmLengthInMinutes)h \(filmLength - filmLengthInMinutes * 60)m")
+                            } else {
+                                Text("")
+                            }
+                        }
+                        .bold()
+                        .foregroundColor(Color.white)
+                        Spacer()
+                        HStack{
+                            if let rating = film.ratingKinopoisk{
+                                Text("\(String(describing: rating))")
+                                    .foregroundColor(Color.yellow)
+                                    .font(.body)
+                                RatingView(rating: rating)
+                            }
+                        }
+                        Spacer()
+                        Text(film.description ?? "")
+                            .frame(alignment: .leading)
+                        Button(action: {
+                            guard let url = URL(string: film.webUrl!) else { return }
+                            UIApplication.shared.open(url)
+                        }) {
+                            Text("Watch now")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .cornerRadius(10)
+                        }
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .foregroundColor(Color.white)
+                //                .background(Color(red: 45/255, green: 39/255, blue: 52/255))
+                .onAppear {
+                    // Make a request to load the film details
+                    FilmLoader().loadFilm(id: id) { detailFilm in
+                        if let film = detailFilm {
+                            // use the loaded film object here
+                            self.film = film
+                        } else {
+                            // handle error case here
+                            print("Failed to load film")
+                        }
+                    }
                 }
             }
         }
+        .background(Color(red: 45/255, green: 39/255, blue: 52/255))
     }
 }
 
