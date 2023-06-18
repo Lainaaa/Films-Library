@@ -10,7 +10,6 @@ import Foundation
 
 @Model
 class FavoriteFilms: Identifiable, Hashable{
-    var id: UUID
     @Attribute(.unique) var kinopoiskId: Int
     var webUrl: String?
     var posterUrlPreview: String?
@@ -20,8 +19,7 @@ class FavoriteFilms: Identifiable, Hashable{
     // "description" name is reserved by SwiftData
     var descriptionOfFilm: String?
     
-    init(id: UUID, kinopoiskId: Int, webUrl: String? = nil, posterUrlPreview: String? = nil, nameRu: String? = nil, nameEn: String? = nil, nameOriginal: String? = nil, descriptionOfFilm: String? = nil) {
-        self.id = UUID()
+    init(kinopoiskId: Int, webUrl: String? = nil, posterUrlPreview: String? = nil, nameRu: String? = nil, nameEn: String? = nil, nameOriginal: String? = nil, descriptionOfFilm: String? = nil) {
         self.kinopoiskId = kinopoiskId
         self.webUrl = webUrl
         self.posterUrlPreview = posterUrlPreview

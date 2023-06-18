@@ -126,7 +126,7 @@ struct FilmDetailView: View {
     
     private func addFavorite(kinopoiskId: Int, webUrl: String?,  posterUrlPreview: String?,  nameRu: String?,  nameEn: String?,  nameOriginal: String?,  descriptionOfFilm: String?) {
         withAnimation {
-            let newFavorite = FavoriteFilms(id: UUID(), kinopoiskId: kinopoiskId, webUrl: webUrl, posterUrlPreview: posterUrlPreview, nameRu: nameRu, nameEn: nameEn, nameOriginal: nameOriginal, descriptionOfFilm: descriptionOfFilm)
+            let newFavorite = FavoriteFilms(kinopoiskId: kinopoiskId, webUrl: webUrl, posterUrlPreview: posterUrlPreview, nameRu: nameRu, nameEn: nameEn, nameOriginal: nameOriginal, descriptionOfFilm: descriptionOfFilm)
             modelContext.insert(newFavorite)
             do {
                 try modelContext.save()
@@ -138,17 +138,12 @@ struct FilmDetailView: View {
     
     private func deleteFavorite(id: Int) {
         withAnimation {
-//            favorites.removeAll { $0.kinopoiskId == id }
-            for favorite in favorites {
-                if favorite.kinopoiskId == id{
-                    modelContext.delete(favorite)
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        print("Error occurred while saving: \(error.localizedDescription)")
-                    }
-                    break
-                }
+            let f = favorites.first(where: {$0.kinopoiskId == id})
+            modelContext.delete(f!)
+            do {
+                try modelContext.save()
+            } catch {
+                print("Error occurred while saving: \(error.localizedDescription)")
             }
         }
     }
