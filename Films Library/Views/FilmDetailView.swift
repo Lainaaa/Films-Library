@@ -1,12 +1,21 @@
 import SwiftUI
 import SDWebImageSwiftUI
-
-// TODO: Setup screen
+import SwiftData
 
 struct FilmDetailView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query var favorites: [FavoriteFilms]
     var id: String
-    let urlIfImageNil = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.htm&psig=AOvVaw1WizU1o4E8-DUgTGxYzmbn&ust=1678369316020000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLi26Yi7zP0CFQAAAAAdAAAAABAE"
-    @State var film: DetailFilm?
+    var isFavoriteFilm: Bool {
+        for favorite in favorites {
+            if String(favorite.kinopoiskId) == id {
+                return true
+            }
+        }
+        return false
+    }
+    let urlIfImageNil = "https://www.computerhope.com/jargon/e/error.png"
+    @State private var film: DetailFilm?
     
     var body: some View {
         // to know size of screen
@@ -20,11 +29,12 @@ struct FilmDetailView: View {
                             .frame(maxWidth: reader.size.width, maxHeight: reader.size.height) .scaledToFit()
                             .cornerRadius(25)
                             .padding(.top, -40)
+                        //Gradient
                             .overlay(
                                 LinearGradient(gradient: Gradient(colors: [Color(red: 45/255, green: 39/255, blue: 52/255), Color.clear]), startPoint: .bottom, endPoint: .top)
                             )
                         Text(film.nameEn ?? film.nameOriginal ?? film.nameRu ?? "Error")
-                            .foregroundColor(Color.white)
+                            .foregroundStyle(Color.white)
                             .offset(y: -50)
                             .padding(.bottom, -50)
                             .font(.title)
@@ -45,12 +55,12 @@ struct FilmDetailView: View {
                             }
                         }
                         .bold()
-                        .foregroundColor(Color.white)
+                        .foregroundStyle(Color.white)
                         Spacer()
                         HStack{
                             if let rating = film.ratingKinopoisk{
                                 Text("\(String(describing: rating))")
-                                    .foregroundColor(Color.yellow)
+                                    .foregroundStyle(Color.red)
                                     .font(.body)
                                 RatingView(rating: rating)
                             }
@@ -58,23 +68,45 @@ struct FilmDetailView: View {
                         Spacer()
                         Text(film.description ?? "")
                             .frame(alignment: .leading)
-                        Button(action: {
-                            guard let url = URL(string: film.webUrl!) else { return }
-                            UIApplication.shared.open(url)
-                        }) {
-                            Text("Watch now")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(10)
+                        HStack{
+                            Button(action: {
+                                guard let url = URL(string: film.webUrl!) else { return }
+                                UIApplication.shared.open(url)
+                            }) {
+                                Text(" Смотреть ")
+                                    .font(.headline)
+                                    .foregroundStyle(.white)
+                                    .padding()
+                                    .background(Color.red)
+                                    .cornerRadius(10)
+                            }
+                            Button(action: {
+                                if !isFavoriteFilm{
+                                    addFavorite(kinopoiskId: film.kinopoiskId, webUrl: film.webUrl, posterUrlPreview: film.posterUrlPreview, nameRu: film.nameRu, nameEn: film.nameEn, nameOriginal: film.nameOriginal, descriptionOfFilm: film.description)
+                                }else{
+                                    deleteFavorite(id: film.kinopoiskId)
+                                }
+                            }) {
+                                var text: String{
+                                    if !isFavoriteFilm{
+                                        return "В избранное"
+                                    }else{
+                                        return "Из избранного"
+                                    }
+                                }
+                                Text(text)
+                                    .font(.headline)
+                                    .foregroundStyle(.red)
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
                         }
                     } else {
                         ProgressView()
                     }
                 }
-                .foregroundColor(Color.white)
-                //                .background(Color(red: 45/255, green: 39/255, blue: 52/255))
+                .foregroundStyle(Color.white)
                 .onAppear {
                     // Make a request to load the film details
                     FilmLoader().loadFilm(id: id) { detailFilm in
@@ -90,6 +122,24 @@ struct FilmDetailView: View {
             }
         }
         .background(Color(red: 45/255, green: 39/255, blue: 52/255))
+    }
+    
+    private func addFavorite(kinopoiskId: Int, webUrl: String?,  posterUrlPreview: String?,  nameRu: String?,  nameEn: String?,  nameOriginal: String?,  descriptionOfFilm: String?) {
+        withAnimation {
+            let newFavorite = FavoriteFilms(id: UUID(), kinopoiskId: kinopoiskId, webUrl: webUrl, posterUrlPreview: posterUrlPreview, nameRu: nameRu, nameEn: nameEn, nameOriginal: nameOriginal, descriptionOfFilm: descriptionOfFilm)
+            modelContext.insert(newFavorite)
+        }
+    }
+    
+    private func deleteFavorite(id: Int) {
+        withAnimation {
+            for favorite in favorites {
+                if favorite.kinopoiskId == id{
+                    modelContext.delete(favorite)
+                }
+                break
+            }
+        }
     }
 }
 

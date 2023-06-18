@@ -6,13 +6,33 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct FavoriteFilmRow: View {
+    let favorite: FavoriteFilms
+    let urlIfImageNil = "https://www.computerhope.com/jargon/e/error.png"
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+        NavigationLink(destination: FilmDetailView(id: String(favorite.kinopoiskId))) {
+            HStack {
+                WebImage(url: URL(string: favorite.posterUrlPreview ?? urlIfImageNil ))
+                    .resizable()
+                    .frame(width: 75, height: 100)
+                    .aspectRatio(contentMode: .fill)
+                VStack {
+                    Text(favorite.nameRu ?? favorite.nameEn ?? favorite.nameOriginal ?? "Error")
+                        .foregroundStyle(Color.white)
+                        .font(.title2)
+                        .frame(width: 150, height: 25)
+                    Text(favorite.descriptionOfFilm ?? "Error")
+                        .frame(height: 75)
+                        .foregroundStyle(Color.white)
+                }
+            }
+        }
+        }
 }
 
 #Preview {
-    FavoriteFilmRow()
+//    FavoriteFilmRow()
 }

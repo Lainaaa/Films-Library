@@ -1,18 +1,19 @@
 struct DetailFilm: Codable{
-    var kinopoiskId: Int
-    var nameRu: String?
-    var nameEn: String?
-    var nameOriginal: String?
-    var posterUrl: String?
-    var genres: [Genre]?
-    var ratingKinopoisk: Float?
-    var webUrl: String?
-    var year : Int?
-    var filmLength: Int?
-    var description: String?
+    let kinopoiskId: Int
+    let nameRu: String?
+    let nameEn: String?
+    let nameOriginal: String?
+    let posterUrl: String?
+    let posterUrlPreview: String?
+    let genres: [Genre]?
+    let ratingKinopoisk: Float?
+    let webUrl: String?
+    let year : Int?
+    let filmLength: Int?
+    let description: String?
 }
 
 
 struct Genre: Codable{
-    var genre: String?
+    let genre: String?
 }

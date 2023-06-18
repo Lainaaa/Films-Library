@@ -10,7 +10,7 @@ import SwiftUI
 struct FilledStar: View {
     var body: some View {
         Image(systemName: "star.fill")
-            .foregroundColor(.yellow)
+            .foregroundStyle(.red)
             .font(.body)
     }
 }
@@ -18,14 +18,14 @@ struct FilledStar: View {
 struct Star: View {
     var body: some View {
         Image(systemName: "star")
-            .foregroundColor(.yellow)
-            .font(.title3)
+            .foregroundStyle(.red)
+            .font(.body)
     }
 }
 
 struct RatingView: View {
     var rating: Float
-    var countOfFilledStars: Int { Int(rating) / 2 }
+    var countOfFilledStars: Int { Int(rating) / 2 + 1}
     
     var body: some View {
         ZStack {

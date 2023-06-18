@@ -10,7 +10,7 @@ struct FilmsScrollView: View {
         VStack{
             // FIXME: Create normal space before header
             Text(header)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .bold()
                 .font(.system(size: 28))
                 .padding(.leading, 15)
@@ -25,13 +25,13 @@ struct FilmsScrollView: View {
                                     .resizable()
                                     .frame(width: 150,height: 200)
                                     .cornerRadius(10)
-                                Text(film.nameEn ?? film.nameRu ?? "error")
-                                    .foregroundColor(Color.white)
+                                Text(film.nameRu ?? film.nameEn ?? "error")
+                                    .foregroundStyle(Color.white)
                                     .font(.title2)
                                     .frame(width: 150, height: 25)
                                 Text(film.year ?? "error")
                                     .font(.callout)
-                                    .foregroundColor(Color.gray)
+                                    .foregroundStyle(Color.gray)
                             }
                         }
                     }

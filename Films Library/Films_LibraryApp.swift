@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Films_LibraryApp: App {
@@ -13,5 +14,9 @@ struct Films_LibraryApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: FavoriteFilms.self)
     }
 }
+
+
+// TODO: Change foregroundColor to foregroundStyle
