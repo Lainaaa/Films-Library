@@ -8,7 +8,6 @@ struct FilmsScrollView: View {
     
     var body: some View {
         VStack{
-            // FIXME: Create normal space before header
             Text(header)
                 .foregroundStyle(.white)
                 .bold()

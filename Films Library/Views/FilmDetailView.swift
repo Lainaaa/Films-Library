@@ -108,13 +108,10 @@ struct FilmDetailView: View {
                 }
                 .foregroundStyle(Color.white)
                 .onAppear {
-                    // Make a request to load the film details
                     FilmLoader().loadFilm(id: id) { detailFilm in
                         if let film = detailFilm {
-                            // use the loaded film object here
                             self.film = film
                         } else {
-                            // handle error case here
                             print("Failed to load film")
                         }
                     }
