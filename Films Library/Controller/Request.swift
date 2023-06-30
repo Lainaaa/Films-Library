@@ -2,33 +2,29 @@ import Foundation
 import Alamofire
 
 class FilmLoader {
-    func loadListOfFilms(list: String, completion: @escaping (FilmData) -> Void) {
+    func loadListOfFilms(list: String) async throws -> FilmData {
         var urlParam: String
-            urlParam = "top?type=\(list)&page=1"
+        urlParam = "top?type=\(list)&page=1"
         let url = URL(string: "https://kinopoiskapiunofficial.tech/api/v2.2/films/" + urlParam)!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil, response == response else {
-                print(error?.localizedDescription ?? "Unknown error")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let filmData = try decoder.decode(FilmData.self, from: data)
-                DispatchQueue.main.async {
-                    completion(filmData) // Call completion closure with filmData
-                }
-            } catch {
-                print(error)
-            }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NSError(domain: "HTTP Error", code: (response as? HTTPURLResponse)?.statusCode ?? 0, userInfo: nil)
         }
 
-        task.resume()
+        do {
+            let decoder = JSONDecoder()
+            let filmData = try decoder.decode(FilmData.self, from: data)
+            return filmData
+        } catch {
+            throw error
+        }
     }
+
     
     func loadFilm(id: String, completion: @escaping (DetailFilm?) -> Void) {
         let url = "https://kinopoiskapiunofficial.tech/api/v2.2/films/\(id)"

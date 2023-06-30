@@ -54,13 +54,14 @@ struct ContentView: View {
             }
         } else {
             return AnyView(ProgressView().onAppear {
-                FilmLoader().loadListOfFilms(list: list, completion: { (filmData: FilmData?) in
-                    guard let filmData = filmData else {
-                        print("Could not read data")
-                        return
+                Task {
+                    do {
+                        let filmData = try await FilmLoader().loadListOfFilms(list: list)
+                            onLoad(filmData)
+                    } catch {
+                        print(error.localizedDescription)
                     }
-                    onLoad(filmData)
-                })
+                }
             })
         }
     }
