@@ -5,7 +5,6 @@ struct FilmsScrollView: View {
     let films: [MovieItem]
     var header: String
     let urlIfImageNil = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.computerhope.com%2Fjargon%2Fe%2Ferror.htm&psig=AOvVaw1WizU1o4E8-DUgTGxYzmbn&ust=1678369316020000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLi26Yi7zP0CFQAAAAAdAAAAABAE"
-    
     var body: some View {
         VStack{
             Text(header)

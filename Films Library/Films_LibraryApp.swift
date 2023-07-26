@@ -17,6 +17,3 @@ struct Films_LibraryApp: App {
         .modelContainer(for: FavoriteFilms.self)
     }
 }
-
-
-// TODO: Change foregroundColor to foregroundStyle

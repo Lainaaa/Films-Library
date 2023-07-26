@@ -59,12 +59,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		486B80B52A2D02B90098E78A /* Controller */ = {
+		486B80B52A2D02B90098E78A /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				48DA3B1F29B9EEF200C1A409 /* Request.swift */,
 			);
-			path = Controller;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		48DA3AF929B9EB5100C1A409 = {
@@ -91,7 +91,7 @@
 				48DA3B1D29B9ED8C00C1A409 /* Model */,
 				48DA3B1E29B9ED9700C1A409 /* Views */,
 				48DA3B0929B9EB5100C1A409 /* Assets.xcassets */,
-				486B80B52A2D02B90098E78A /* Controller */,
+				486B80B52A2D02B90098E78A /* Network */,
 				48DA3B0B29B9EB5100C1A409 /* Preview Content */,
 			);
 			path = "Films Library";
